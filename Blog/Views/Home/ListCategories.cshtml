@@ -6,6 +6,12 @@
 
 <div class="container">
     <div class="row">
+        <div class="img">
+            <a target="_blank" class="home_image">
+                <img src="~/Photos/iB5YUc.jpg" alt="Forest" width="1170" height="500">
+            </a>
+            <div class="desc">Add a description of the image here</div>
+        </div>
         @foreach (var category in Model)
         {
             <div class="col-sm-6 text-center text-uppercase">
@@ -14,10 +20,14 @@
                     <h2>
                         @Html.ActionLink(string.Format($"{category.Name} ({category.Articles.Count})"),
                         "ListArticles", "Home", new { @categoryId = category.Id }, null)
+
+                        
                 </h2>
+                   
             </p>
         </div>
         }
+       
     </div>
 </div>
 <hr />
