@@ -226,7 +226,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    HEAD
     <Content Include="Photos\iB5YUc.jpg" />
     <Content Include="Photos\img_fjords.jpg" />
     <Content Include="Photos\img_forest.jpg" />
@@ -242,7 +241,6 @@
     <Content Include="Photos\nature-wallpapers-1.jpg" />
     <Content Include="Photos\Ve8s2u.jpg" />
     <Content Include="Photos\WDF_1591308.jpg" />
-    fca8e7100e22d53e6486795c2bf3ceeb44a78808
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
