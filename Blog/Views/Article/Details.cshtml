@@ -13,27 +13,47 @@
         </header>
         <p>
             @Model.Content
-           
+
         </p>
 
-        <div class="pull-left">
-            @foreach (var tag in Model.Tags)
-            {
-                @Html.ActionLink(tag.Name, "List", "Tag", new { @id = tag.Id }, new { @class = "btn btn-default btn-xs" })
-            }
+       
+
+        <div class="bash">
+            <div class="img-container" align="center">
+                <img src="img-rounded" />
+            </div>
+            <br />
+            <div class="form-group">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-sm-4" })
+                    <div class="col-sm-4">
+                        @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @type = "file", @onchange = "previewFile()" } })
+                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <small class="author">
-            --author @Model.Author.NickName
-        </small>
-        <footer class="pull-right">
-            @if (User.IsInRole("Admin") || User.IsInRole("User"))
+            <div class="pull-left">
+                @foreach (var tag in Model.Tags)
             {
-                @Html.ActionLink("Edit", "Edit", "Article", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
-                @Html.ActionLink("Delete", "Delete", "Article", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
-            }
-            @Html.ActionLink("Back", "Index", "Article", null, new { @class = "btn btn-default btn-xs" })
-        </footer>
-    </article>
+                    @Html.ActionLink(tag.Name, "List", "Tag", new { @id = tag.Id }, new { @class = "btn btn-default btn-xs" })
+                }
+            </div>
+
+            <small class="author">
+                --author @Model.Author.NickName
+            </small>
+            <footer class="pull-right">
+                @if (User.IsInRole("Admin") || User.IsInRole("User"))
+            {
+                    @Html.ActionLink("Edit", "Edit", "Article", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
+                    @Html.ActionLink("Delete", "Delete", "Article", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
+                }
+                @Html.ActionLink("Back", "Index", "Article", null, new { @class = "btn btn-default btn-xs" })
+            </footer>
+</article>
 </div>
 <hr />

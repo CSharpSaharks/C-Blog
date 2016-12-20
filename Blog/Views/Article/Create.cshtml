@@ -5,18 +5,21 @@
 
 <div class="container">
     <div class="well">
-        <h2>Create Article</h2>
-        @using (Html.BeginForm("Create", "Article", FormMethod.Post, new { @class = "form-horizontal" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary("", new { @class = "text-danger" })
+    <h2>Create Article</h2>
+    @using (Html.BeginForm("Create", "Article", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.Title, new { @class = "control-label col-sm-4" })
-                <div class="col-sm-4">
-                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title, new { @class = "control-label col-sm-4" })
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
             </div>
+        </div>
+
+            
+        
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Content, new { @class = "control-label col-sm-4" })
@@ -24,12 +27,13 @@
                     @Html.TextAreaFor(m => m.Content, new { @class = "form-control", @rows = "7" })
                 </div>
             </div>
+
             <div class="form-group">
                 @Html.LabelFor(m => m.CategoryId, new { @class = "col-sm-4 control-label" })
                 <div class="dropdown col-sm-4">
                     @Html.DropDownListFor(m => m.CategoryId,
-                        new SelectList(Model.Categories, "Id", "Name"),
-                        new { @class = "btn btn-info col-sm-12" })
+                     new SelectList(Model.Categories, "Id", "Name"),
+                     new { @class = "btn btn-info col-sm-12" })
                 </div>
             </div>
 
@@ -49,3 +53,29 @@
         }
     </div>
 </div>
+
+<script>
+    function previewFile() {
+        var preview = document.querySelector('img'); //selects the query named img
+        var file = document.querySelector('input[type=file]').files[0]; //sames as here
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file); //reads the data as a URL
+        } else {
+            preview.src = "";
+        }
+    }
+
+    previewFile();  //calls the function named previewFile()
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+

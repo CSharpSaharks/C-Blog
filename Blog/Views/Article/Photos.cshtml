@@ -5,51 +5,59 @@
     ViewBag.Title = "Photo";
 }
 
-<h2>Photos</h2>
+<div class="temp">
+    <p style="color: black ;text-decoration:none" href="/Article/Create">Upload Photo</p>
+</div>
+<br />
+<br />
+<br />
+@using (Html.BeginForm("Create", "Article", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="temp1">
 
+        <div class="bash">
+            <div class="img-container"  style=>
+                <img class="img-rounded">
+            </div>
 
-@{  WebImage photo = null;
-    var newFileName = "";
-    var imagePath = "";
+            <div class="form-horizontal" style="margin-left: 120pt; margin-top: 20pt;">
 
-    if (IsPost)
-    {
-        photo = WebImage.GetImageFromRequest();
-        if (photo != null)
-        {
-            newFileName = Guid.NewGuid().ToString() + "_" +
-                Path.GetFileName(photo.FileName);
-            imagePath = @"images\" + newFileName;
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @type = "file", @onchange = "previewFile()" } })
+                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function previewFile() {
+        var preview = document.querySelector('img'); //selects the query named img
+        var file = document.querySelector('input[type=file]').files[0]; //sames as here
+        var reader = new FileReader();
 
-            photo.Save(@"~\" + imagePath);
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file); //reads the data as a URL
+        } else {
+            preview.src = "";
         }
     }
-}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Image Upload</title>
-</head>
-<body>
-    <form action="" method="post" enctype="multipart/form-data">
-        <fieldset>
-            <legend> Upload Image </legend>
-            <label for="Image">Image</label>
-            <input type="file" name="Image" />
-            <br />
-            <input type="submit" value="Upload" />
-        </fieldset>
-    </form>
-    <h1>Uploaded Image</h1>
-    @if (imagePath != "")
-    {
-        <div class="result">
-            <img src="@imagePath" alt="image" />
 
-        </div>
-    }
-</body>
-</html>
+    previewFile();  //calls the function named previewFile()
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 
 
 

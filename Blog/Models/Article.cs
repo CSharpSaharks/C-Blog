@@ -12,18 +12,21 @@ namespace Blog.Models
         public Article()
         {
             this.tags = new HashSet<Tag>();
+
         }
 
-        public Article(string authorId, string title, string content, int categoryId)
+        public Article(string authorId, string title, string content, int categoryId, string image)
         {
             this.AuthorId = authorId;
             this.Title = title;
             this.Content = content;
             this.CategoryId = categoryId;
+            this.Image = Image;
             this.tags = new HashSet<Tag>();
             
+
         }
-         
+
         [Key]
         public int Id { get; set; }
 
@@ -55,7 +58,9 @@ namespace Blog.Models
             set { this.tags = value; }
         }
 
-        
+        public virtual Upload Image { get; set; }
+
+       
 
     }
 }

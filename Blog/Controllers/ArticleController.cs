@@ -1,14 +1,18 @@
 ﻿using Blog.Models;
 using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Blog.Controllers
 {
     public class ArticleController : Controller
     {
+        
+
         //
         // GET: Article
         public ActionResult Index()
@@ -78,21 +82,22 @@ namespace Blog.Controllers
         // POST: Article/Create
         [HttpPost]
         [Authorize]
-        public ActionResult Create(ArticleViewModel model)
+        public ActionResult Create(ArticleViewModel model, HttpPostedFileBase image)
         {
             using (var database = new BlogDbContext())
             {
-               
+
 
                 var authorId = database.Users
                     .Where(u => u.UserName == this.User.Identity.Name)
                     .First()
                     .Id;
 
-                var article = new Article(authorId, model.Title, model.Content, model.CategoryId);
+                var article = new Article(authorId, model.Title, model.Content, model.CategoryId, model.Image);
 
                 this.SetArticleTags(article, model, database);
-
+                
+               
                 database.Articles.Add(article);
                 database.SaveChanges();
 
@@ -102,6 +107,8 @@ namespace Blog.Controllers
 
             return View(model);
         }
+
+
 
         //
         // GET: Article/Delete
@@ -214,6 +221,7 @@ namespace Blog.Controllers
                     .ToList();
 
                 model.Tags = string.Join(",", article.Tags.Select(t => t.Name));
+                
 
 
                 // Show the editing view
@@ -255,14 +263,45 @@ namespace Blog.Controllers
             return View(model);
         }
 
-        //
-        //GET: Article/Photos
-        [HttpGet]
-        public ActionResult Photos ()
+        [HttpPost]
+        public string UploadImage(HttpPostedFileBase file)
         {
+            string name = null;
+            if (ModelState.IsValid)
+            {
+                if (file == null)
+                {
+                    ModelState.AddModelError("File", "Please Upload Your file");
+                }
+                else if (file.ContentLength > 0)
+                {
+                    int maxContentLength = 1024 * 1024 * 3; //3 MB
+                    string[] allowedFileExtensions = { ".jpg", ".gif", ".png", ".pdf" };
 
-            return View();
+                    if (!allowedFileExtensions.Contains(file.FileName.Substring(file.FileName.LastIndexOf('.'))))
+                    {
+                        ModelState.AddModelError("File", "Please file of type: " + string.Join(", ", allowedFileExtensions));
+                    }
+
+                    else if (file.ContentLength > maxContentLength)
+                    {
+                        ModelState.AddModelError("File",
+                            "Your file is too large, maximum allowed size is: " + maxContentLength + " MB");
+                    }
+                    else
+                    {
+                        name = "" + Guid.NewGuid() + file.FileName.Substring(file.FileName.LastIndexOf('.'));
+                        string path = Path.Combine(Server.MapPath("~/Images"), name);
+                        file.SaveAs(path);
+                        ModelState.Clear();
+                        ViewBag.Message = "File uploaded successfully";
+                    }
+                }
+            }
+
+            return name;
         }
+
 
         private void SetArticleTags(Article article, ArticleViewModel model, BlogDbContext database)
         {

@@ -1131,7 +1131,7 @@ img {
   height: auto;
 }
 .img-rounded {
-  border-radius: 6px;
+  border-radius: 50px;
 }
 .img-thumbnail {
   padding: 4px;
