@@ -6,6 +6,11 @@ namespace Blog.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
+        [Display(Name = "Username")]
+
+        public string UserName { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
