@@ -15,13 +15,12 @@ namespace Blog.Models
 
         }
 
-        public Article(string authorId, string title, string content, int categoryId, string image)
+        public Article(string authorId, string title, string content, int categoryId)
         {
             this.AuthorId = authorId;
             this.Title = title;
             this.Content = content;
             this.CategoryId = categoryId;
-            this.Image = Image;
             this.tags = new HashSet<Tag>();
             
 
@@ -36,6 +35,8 @@ namespace Blog.Models
 
         [Required]
         public string Content { get; set; }
+
+        public string Image { get; set; }
 
         [ForeignKey("Author")]
         public string AuthorId { get; set; }
@@ -58,7 +59,7 @@ namespace Blog.Models
             set { this.tags = value; }
         }
 
-        public virtual Upload Image { get; set; }
+        
 
        
 
