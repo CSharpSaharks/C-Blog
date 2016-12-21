@@ -337,5 +337,15 @@ namespace Blog.Controllers
 
             return isAdmin || isAuthor;
         }
+
+        //
+        //GET: Article/Photos
+        [HttpGet]
+        public ActionResult Photos()
+        {
+            return View();
+        }
+
+   
     }
 }

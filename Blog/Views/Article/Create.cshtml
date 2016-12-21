@@ -24,6 +24,21 @@
             </div>
             <br />
             <div class="form-group">
+<<<<<<< HEAD
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-sm-4" })
+                    <div class="col-sm-4">
+                        @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @type = "file", @onchange = "previewFile()" } })
+                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+=======
+>>>>>>> c439513983d10408fd56948ab5515b7f237946b4
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
