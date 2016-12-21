@@ -61,6 +61,8 @@ namespace Blog.Controllers
             }
         }
 
+        
+
         //
         // GET: Article/Create
         [Authorize]
@@ -93,7 +95,7 @@ namespace Blog.Controllers
                     .First()
                     .Id;
 
-                var article = new Article(authorId, model.Title, model.Content, model.CategoryId, model.Image);
+                var article = new Article(authorId, model.Title, model.Content, model.CategoryId);
 
                 this.SetArticleTags(article, model, database);
                 
@@ -107,6 +109,45 @@ namespace Blog.Controllers
 
             return View(model);
         }
+
+        /*[HttpPost]
+        public string UploadImage(HttpPostedFileBase file)
+        {
+            string name = null;
+            if (ModelState.IsValid)
+            {
+                if (file == null)
+                {
+                    ModelState.AddModelError("File", "Please Upload Your file");
+                }
+                else if (file.ContentLength > 0)
+                {
+                    int maxContentLength = 1024 * 1024 * 3; //3 MB
+                    string[] allowedFileExtensions = { ".jpg", ".gif", ".png", ".pdf" };
+
+                    if (!allowedFileExtensions.Contains(file.FileName.Substring(file.FileName.LastIndexOf('.'))))
+                    {
+                        ModelState.AddModelError("File", "Please file of type: " + string.Join(", ", allowedFileExtensions));
+                    }
+
+                    else if (file.ContentLength > maxContentLength)
+                    {
+                        ModelState.AddModelError("File",
+                            "Your file is too large, maximum allowed size is: " + maxContentLength + " MB");
+                    }
+                    else
+                    {
+                        name = "" + Guid.NewGuid() + file.FileName.Substring(file.FileName.LastIndexOf('.'));
+                        string path = Path.Combine(Server.MapPath("~/Photos"), name);
+                        file.SaveAs(path);
+                        ModelState.Clear();
+                        ViewBag.Message = "File uploaded successfully";
+                    }
+                }
+            }
+
+            return name;
+        }*/
 
 
 
@@ -261,45 +302,6 @@ namespace Blog.Controllers
 
             // If model state is invalid, return the same view
             return View(model);
-        }
-
-        [HttpPost]
-        public string UploadImage(HttpPostedFileBase file)
-        {
-            string name = null;
-            if (ModelState.IsValid)
-            {
-                if (file == null)
-                {
-                    ModelState.AddModelError("File", "Please Upload Your file");
-                }
-                else if (file.ContentLength > 0)
-                {
-                    int maxContentLength = 1024 * 1024 * 3; //3 MB
-                    string[] allowedFileExtensions = { ".jpg", ".gif", ".png", ".pdf" };
-
-                    if (!allowedFileExtensions.Contains(file.FileName.Substring(file.FileName.LastIndexOf('.'))))
-                    {
-                        ModelState.AddModelError("File", "Please file of type: " + string.Join(", ", allowedFileExtensions));
-                    }
-
-                    else if (file.ContentLength > maxContentLength)
-                    {
-                        ModelState.AddModelError("File",
-                            "Your file is too large, maximum allowed size is: " + maxContentLength + " MB");
-                    }
-                    else
-                    {
-                        name = "" + Guid.NewGuid() + file.FileName.Substring(file.FileName.LastIndexOf('.'));
-                        string path = Path.Combine(Server.MapPath("~/Images"), name);
-                        file.SaveAs(path);
-                        ModelState.Clear();
-                        ViewBag.Message = "File uploaded successfully";
-                    }
-                }
-            }
-
-            return name;
         }
 
 
