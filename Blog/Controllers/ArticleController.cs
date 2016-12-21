@@ -11,7 +11,6 @@ namespace Blog.Controllers
 {
     public class ArticleController : Controller
     {
-        
 
         //
         // GET: Article
@@ -84,7 +83,7 @@ namespace Blog.Controllers
         // POST: Article/Create
         [HttpPost]
         [Authorize]
-        public ActionResult Create(ArticleViewModel model, HttpPostedFileBase image)
+        public ActionResult Create(ArticleViewModel model)
         {
             using (var database = new BlogDbContext())
             {
@@ -99,16 +98,19 @@ namespace Blog.Controllers
 
                 this.SetArticleTags(article, model, database);
                 
+                
                
                 database.Articles.Add(article);
                 database.SaveChanges();
 
                 return RedirectToAction("Index");
-
+               
             }
 
             return View(model);
         }
+
+        
 
         /*[HttpPost]
         public string UploadImage(HttpPostedFileBase file)

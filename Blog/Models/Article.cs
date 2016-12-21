@@ -36,8 +36,6 @@ namespace Blog.Models
         [Required]
         public string Content { get; set; }
 
-        public string Image { get; set; }
-
         [ForeignKey("Author")]
         public string AuthorId { get; set; }
 

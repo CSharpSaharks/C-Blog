@@ -21,6 +21,5 @@ namespace Blog.Models
             return new BlogDbContext();
         }
 
-        public virtual IDbSet<Upload> Images { get; set; }
     }
 }

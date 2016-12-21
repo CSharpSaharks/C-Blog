@@ -27,7 +27,5 @@ namespace Blog.Models
 
         public string Tags { get; set; }
 
-        public string Image { get; set; }
-
     }
 }
