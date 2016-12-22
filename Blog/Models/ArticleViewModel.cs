@@ -8,6 +8,7 @@ namespace Blog.Models
 {
     public class ArticleViewModel
     {
+        
         public int Id { get; set; }
 
         [Required]
@@ -27,5 +28,6 @@ namespace Blog.Models
 
         public string Tags { get; set; }
 
+        public string Image { get; set; }
     }
 }

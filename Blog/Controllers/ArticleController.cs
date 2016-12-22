@@ -85,6 +85,8 @@ namespace Blog.Controllers
         [Authorize]
         public ActionResult Create(ArticleViewModel model)
         {
+           
+
             using (var database = new BlogDbContext())
             {
 
@@ -346,6 +348,5 @@ namespace Blog.Controllers
             return View();
         }
 
-   
     }
 }

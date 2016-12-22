@@ -33,6 +33,8 @@ namespace Blog.Models
         [StringLength(50)]
         public string Title { get; set; }
 
+        public string Image { get; set; }
+
         [Required]
         public string Content { get; set; }
 
@@ -56,10 +58,6 @@ namespace Blog.Models
             get { return this.tags; }
             set { this.tags = value; }
         }
-
-        
-
-       
 
     }
 }
